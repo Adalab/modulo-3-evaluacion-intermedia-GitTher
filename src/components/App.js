@@ -5,6 +5,9 @@ import callToApi from '../services/api';
 
 function App() {
   const [adalabersData, setAdalabersData] = useState([]);
+  const [newName, setNewName] = useState('');
+  const [newCounselor, setNewCounselor] = useState('');
+  const [newSpeciality, setNewSpeciality] = useState('');
 
   useEffect(() => {
     callToApi().then(response => {
@@ -24,6 +27,31 @@ function App() {
     });
   };
 
+  const handleNewName = (event) => {
+    setNewName(event.currentTarget.value);
+  }
+
+  const handleNewCounselor = (event) => {
+    setNewCounselor(event.currentTarget.value);
+  }
+
+  const handleNewSpeciality = (event) => {
+    setNewSpeciality(event.currentTarget.value);
+  }
+
+  const handleNewAdalaber = (event) => {
+    event.preventDefault();
+    const newAdalaber = {
+      name: newName,
+      counselor: newCounselor,
+      speciality: newSpeciality,
+    };
+    setAdalabersData([...adalabersData, newAdalaber]);
+    setNewName('');
+    setNewCounselor('');
+    setNewSpeciality('');
+  }
+
   return (
     <div>
       <h1>Adalabers</h1>
@@ -40,12 +68,12 @@ function App() {
       <h2>Añadir una Adalaber</h2>
       <form>
         <label htmlFor='name'>Nombre:</label>
-        <input type="text" id='name' name='name' />
+        <input type="text" id='name' name='name' value={newName} onChange={handleNewName} />
         <label htmlFor='counselor'>Tutora:</label>
-        <input type="text" id='counselor' name='counselor' />
+        <input type="text" id='counselor' name='counselor' value={newCounselor} onChange={handleNewCounselor} />
         <label htmlFor='speciality'>Especialidad:</label>
-        <input type="text" id='speciality' name='speciality' />
-        <input type="submit" value="Añadir una nueva Adalaber" />
+        <input type="text" id='speciality' name='speciality' value={newSpeciality} onChange={handleNewSpeciality} />
+        <input type="submit" value="Añadir una nueva Adalaber" onClick={handleNewAdalaber} />
       </form>
     </div>
   );
