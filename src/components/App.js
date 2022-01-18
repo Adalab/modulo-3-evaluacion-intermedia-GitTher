@@ -16,14 +16,19 @@ function App() {
   }, []);
 
   const renderAdalabers = () => {
-    return adalabersData.map(adalaber => {
-      return (
+    return adalabersData.map((adalaber, index) => {
+      return adalaber.id === undefined ?
+        <tr key={index}>
+          <td>{adalaber.name}</td>
+          <td>{adalaber.counselor}</td>
+          <td>{adalaber.speciality}</td>
+        </tr>
+        :
         <tr key={adalaber.id}>
           <td>{adalaber.name}</td>
           <td>{adalaber.counselor}</td>
           <td>{adalaber.speciality}</td>
         </tr>
-      );
     });
   };
 
