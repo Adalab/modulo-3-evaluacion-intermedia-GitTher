@@ -8,6 +8,7 @@ function App() {
   const [newName, setNewName] = useState('');
   const [newCounselor, setNewCounselor] = useState('');
   const [newSpeciality, setNewSpeciality] = useState('');
+  const [search, setSearch] = useState('');
 
   useEffect(() => {
     callToApi().then(response => {
@@ -16,20 +17,25 @@ function App() {
   }, []);
 
   const renderAdalabers = () => {
-    return adalabersData.map((adalaber, index) => {
-      return adalaber.id === undefined ?
-        <tr key={index}>
-          <td>{adalaber.name}</td>
-          <td>{adalaber.counselor}</td>
-          <td>{adalaber.speciality}</td>
-        </tr>
-        :
-        <tr key={adalaber.id}>
-          <td>{adalaber.name}</td>
-          <td>{adalaber.counselor}</td>
-          <td>{adalaber.speciality}</td>
-        </tr>
-    });
+    return (
+      adalabersData
+        .filter(adalaber => {
+          return adalaber.name.toLowerCase().includes(search.toLowerCase());
+        })
+        .map((adalaber, index) => {
+          return adalaber.id === undefined ?
+            <tr key={index}>
+              <td>{adalaber.name}</td>
+              <td>{adalaber.counselor}</td>
+              <td>{adalaber.speciality}</td>
+            </tr>
+            :
+            <tr key={adalaber.id}>
+              <td>{adalaber.name}</td>
+              <td>{adalaber.counselor}</td>
+              <td>{adalaber.speciality}</td>
+            </tr>
+        }))
   };
 
   const handleNewName = (event) => {
@@ -57,9 +63,17 @@ function App() {
     setNewSpeciality('');
   }
 
+  const handleSearch = (event) => {
+    setSearch(event.currentTarget.value);
+  }
+
   return (
     <div>
       <h1>Adalabers</h1>
+      <form>
+        <label htmlFor='search'>Nombre:</label>
+        <input type="text" id='search' name='search' value={search} onChange={handleSearch} />
+      </form>
       <table>
         <thead><tr>
           <th>Nombre</th>
