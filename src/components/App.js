@@ -32,20 +32,15 @@ function App() {
               <td>{adalaber.name}</td>
               <td>{adalaber.counselor}</td>
               <td>{adalaber.speciality}</td>
-              <td>{adalaber.social_networks.map((social_network) => {
-                return (
-                  <a href={`${social_network.url}`}>{social_network.name}</a>
-                )
-              })}</td>
             </tr>
             :
             <tr key={adalaber.id}>
               <td>{adalaber.name}</td>
               <td>{adalaber.counselor}</td>
               <td>{adalaber.speciality}</td>
-              <td>{adalaber.social_networks.map((social_network) => {
+              <td>{adalaber.social_networks.map((social_network, index) => {
                 return (
-                  <a href={`${social_network.url}`}>{social_network.name}</a>
+                  <a key={index} href={`${social_network.url}`}>{social_network.name}</a>
                 )
               })}</td>
             </tr>
