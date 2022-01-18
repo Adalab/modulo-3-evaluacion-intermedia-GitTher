@@ -9,6 +9,7 @@ function App() {
   const [newCounselor, setNewCounselor] = useState('');
   const [newSpeciality, setNewSpeciality] = useState('');
   const [search, setSearch] = useState('');
+  const [filter, setFilter] = useState('');
 
   useEffect(() => {
     callToApi().then(response => {
@@ -21,6 +22,9 @@ function App() {
       adalabersData
         .filter(adalaber => {
           return adalaber.name.toLowerCase().includes(search.toLowerCase());
+        })
+        .filter(adalaber => {
+          return adalaber.counselor.toLowerCase().includes(filter);
         })
         .map((adalaber, index) => {
           return adalaber.id === undefined ?
@@ -67,12 +71,23 @@ function App() {
     setSearch(event.currentTarget.value);
   }
 
+  const handleFilter = (event) => {
+    setFilter(event.currentTarget.value)
+  }
+
   return (
     <div>
       <h1>Adalabers</h1>
       <form>
         <label htmlFor='search'>Nombre:</label>
         <input type="text" id='search' name='search' value={search} onChange={handleSearch} />
+        <label htmlFor='filter'>Escoge una tutora:</label>
+        <select id='filter' name='filter' value={filter} onChange={handleFilter}>
+          <option value="" disabled>Escoge una opción</option>
+          <option value="yanelis">Yanelis</option>
+          <option value="dayana">Dayana</option>
+          <option value="iván">Iván</option>
+        </select>
       </form>
       <table>
         <thead><tr>
