@@ -32,12 +32,22 @@ function App() {
               <td>{adalaber.name}</td>
               <td>{adalaber.counselor}</td>
               <td>{adalaber.speciality}</td>
+              <td>{adalaber.social_networks.map((social_network) => {
+                return (
+                  <a href={`${social_network.url}`}>{social_network.name}</a>
+                )
+              })}</td>
             </tr>
             :
             <tr key={adalaber.id}>
               <td>{adalaber.name}</td>
               <td>{adalaber.counselor}</td>
               <td>{adalaber.speciality}</td>
+              <td>{adalaber.social_networks.map((social_network) => {
+                return (
+                  <a href={`${social_network.url}`}>{social_network.name}</a>
+                )
+              })}</td>
             </tr>
         }))
   };
@@ -94,6 +104,7 @@ function App() {
           <th>Nombre</th>
           <th>Tutora</th>
           <th>Especialidad</th>
+          <th>Redes</th>
         </tr></thead>
         <tbody>
           {renderAdalabers()}
